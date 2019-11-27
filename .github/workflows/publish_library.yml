@@ -1,0 +1,16 @@
+name: "Publish library to GitHub Packages"
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Publish snapshot
+      env:
+        USERNAME: horie1024
+        TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: ./gradlew publish
