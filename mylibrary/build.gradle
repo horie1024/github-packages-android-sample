@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: "digital.wup.android-maven-publish"
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion 29
@@ -27,7 +27,21 @@ android {
 
 }
 
+task sourceJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    archiveClassifier.set("sources")
+}
+
 publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId "com.horie1024"
+            artifactId "github-packages-sample-library"
+            version "$VERSION"
+            artifact(sourceJar)
+            artifact("$buildDir/outputs/aar/mylibrary-release.aar")
+        }
+    }
     repositories {
         maven {
             name = "GitHubPackages"
@@ -36,14 +50,6 @@ publishing {
                 username = System.getenv("USERNAME")
                 password = System.getenv("TOKEN")
             }
-        }
-    }
-    publications {
-        maven(MavenPublication) {
-            from components.android
-            groupId "com.horie1024"
-            artifactId "github-packages-sample-library"
-            version "$VERSION"
         }
     }
 }

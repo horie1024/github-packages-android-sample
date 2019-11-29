@@ -13,4 +13,4 @@ jobs:
       env:
         USERNAME: horie1024
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: ./gradlew publish
+      run: ./gradlew assembleRelease publish
