@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Publish snapshot
+    - name: Publish library
       env:
         USERNAME: horie1024
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
