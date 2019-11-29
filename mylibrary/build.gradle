@@ -39,8 +39,8 @@ publishing {
             groupId "com.horie1024"
             artifactId "github-packages-sample-library"
             version "$VERSION"
-            artifact(sourceJar)
-            artifact("$buildDir/outputs/aar/mylibrary-release.aar")
+            artifact sourceJar
+            artifact "$buildDir/outputs/aar/mylibrary-release.aar"
 
             // include any transitive dependencies
             pom {
@@ -48,7 +48,7 @@ publishing {
                     def dependenciesNode = asNode().appendNode('dependencies')
 
                     project.configurations.implementation.allDependencies.each {
-                        if (it.name == "unspecified") return
+                        if (it.group != null || it.name != null || it.version != null || it.name == "unspecified") return
 
                         def dependencyNode = dependenciesNode.appendNode('dependency')
                         dependencyNode.appendNode('groupId', it.group)
@@ -82,6 +82,7 @@ dependencies {
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-runtime:$lifecycle_version"
+    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
