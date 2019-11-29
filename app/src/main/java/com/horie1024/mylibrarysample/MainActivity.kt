@@ -11,7 +11,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val hello = Hello()
-        hello_world.text = hello.world("Horie")
+        hello_world.text = Hello.world("Horie1024")
     }
 }
