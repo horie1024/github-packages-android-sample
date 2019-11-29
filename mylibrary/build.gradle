@@ -26,11 +26,13 @@ android {
         }
     }
 
+    libraryVariants.all {
+        it.generateBuildConfigProvider.configure { enabled = false }
+    }
 }
 
 task sourceJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
-    exclude '**/BuildConfig.class'
     archiveClassifier.set("sources")
 }
 
